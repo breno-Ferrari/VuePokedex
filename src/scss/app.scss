@@ -1,0 +1,12 @@
+$background-search-bar: transparent ;
+$inner-width: 95%;
+$card-color: #fff;
+
+@mixin general-styles {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 1rem;
+}
