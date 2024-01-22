@@ -1,6 +1,6 @@
 <template>
   <section class="searchBox">
-    <input type="search" id="filter" name="filter" class="filter" placeholder="Search" @input="atualizarTexto" v-model="valor">
+    <input type="search" id="filter" name="filter" class="filter" placeholder="Search" @input="atualizarTexto" v-model="textoBusca">
   </section>
 </template>
 
@@ -8,12 +8,12 @@
 export default {
   data() {
     return {
-      valor: ''
+      textoBusca: ''
     };
   },
   methods: {
     atualizarTexto() {
-      this.$emit('atualizarTexto', this.valor);
+      this.$emit('atualizarTexto', this.textoBusca);
     }
   }
 };
@@ -29,7 +29,7 @@ export default {
 }
 .filter{
     background-color: $background-search-bar;
-    width: $width;
+    width: $inner-width;
     height: 3rem;
     border: none;
     border-bottom:0.1rem solid #A6A6A6;

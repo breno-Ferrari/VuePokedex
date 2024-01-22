@@ -6,7 +6,7 @@
         apiData: null,
         pokemonDetailsList: [],
         filteredPokemonList: [],
-        filtro:""
+        textoBusca:""
       };
     },
     methods: {
@@ -32,8 +32,9 @@
     },
     computed:{
       PokemonList(){
-        if(this.filtro.trim().length > 0){
-          return this.filteredPokemonList.filter((pokemon)=> pokemon.name.toLowerCase().includes(this.filtro.toLowerCase().trim()) )
+        console.log(this.textoBusca);
+        if(this.textoBusca.trim().length > 0){
+          return this.filteredPokemonList.filter((pokemon)=> pokemon.name.toLowerCase().includes(this.textoBusca.toLowerCase().trim()) )
         }
         return this.filteredPokemonList;
       }
@@ -42,15 +43,8 @@
 </script>
 
 <template>
-
-  <!-- terminar de componentizar  -->
-  <section class="searchBox">
-    <input type="search" id="filter" name="filter" class="filter" placeholder="Search" @input="atualizarTexto" v-model="filtro">
-  </section>
-
-
-  <div v-if="apiData && apiData.results" class="align">
-    <div class="body" v-for="(pokemon, index) in PokemonList" :key="index">
+  <div v-if="apiData && apiData.results" class="align" >
+    <div class="body" v-for="(pokemon, index) in PokemonList" :key="index" >
       <div class="image">
         <img :src="pokemon.sprites.front_default" alt="{{pokemon.name}}" >
       </div>
