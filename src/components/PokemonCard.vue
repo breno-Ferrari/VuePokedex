@@ -15,9 +15,10 @@
           const response = await axios.get('https://pokeapi.co/api/v2/pokemon?limit=151');
           this.apiData = response.data;
 
-          const requests = this.apiData.results.map((pokemon, index) => 
+          const requests = this.apiData.results.map((_, index) => 
             axios.get(`https://pokeapi.co/api/v2/pokemon/${index + 1}/`)
           );
+
           const responses = await axios.all(requests);
 
           responses.forEach(response => {
@@ -29,13 +30,17 @@
         } catch (error) {
           console.error('Erro ao obter dados da API', error);
         }
-      }
+      },
     },
     beforeMount() {
-      this.getPokemon()
+      this.getPokemon();
+     
     },
     computed:{
       PokemonList(){
+        document.querySelector("#filter").addEventListener("input",(e)=>{
+          this.textoBusca = e.target.value
+        })
         if(this.textoBusca.trim().length > 0){
           return this.filteredPokemonList.filter((pokemon)=> pokemon.name.toLowerCase().includes(this.textoBusca.toLowerCase().trim()) )
         }
@@ -47,7 +52,7 @@
 
 <template>
   <div v-if="apiData && apiData.results" class="align" >
-    <div class="body" v-for="(pokemon, index) in PokemonList" :key="index" >
+    <div class="body" v-for="(pokemon, index) in PokemonList" :key="index" @atualizarTexto="lidarComTextoAtualizado" :textoBusca="textoBusca">
       <div class="image">
         <img :src="pokemon.sprites.front_default" alt="{{pokemon.name}}" >
       </div>

@@ -2,9 +2,10 @@
   import PokeDex from './views/PokeDex.vue';
 </script>
 
+
 <template>
   <main class="alignDivs">
-    <PokeDex />
+    <PokeDex/>
   </main>
 </template>
 

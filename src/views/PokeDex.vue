@@ -1,29 +1,19 @@
-<script setup>
-  import PokemonCard from '../components/PokemonCard.vue'
-  import SearchBar from '../components/SearchBar.vue'
-
-</script>
 
 <script>
-export default {
-  data() {
-    return {
-      textoBusca: ''
-    };
-  },
-  methods: {
-    lidarComTextoAtualizado(texto) {
-      this.textoBusca = texto;
-      console.log(this.textoBusca);
-    }
-  }
-};
+  import PokemonCard from '../components/PokemonCard.vue';
+  import SearchBar from '../components/SearchBar.vue';
+  export default {
+    components:{
+      PokemonCard,
+      SearchBar
+    },
+  };
 </script>
 
 <template>
-   <SearchBar @atualizarTexto="lidarComTextoAtualizado" />
+   <SearchBar/>
   <section class="pokedexBox">
-    <PokemonCard :textoBusca="textoBusca"/>
+    <PokemonCard/>
   </section>
 </template>
 
