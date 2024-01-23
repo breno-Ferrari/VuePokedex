@@ -14,13 +14,17 @@
         try {
           const response = await axios.get('https://pokeapi.co/api/v2/pokemon?limit=151');
           this.apiData = response.data;
-          await Promise.all(
-            this.apiData.results.map(async (pokemon, index) => {
-              const detailsResponse = await axios.get(`https://pokeapi.co/api/v2/pokemon/${index + 1}/`);
-              const pokemonDetails = detailsResponse.data;
-              this.pokemonDetailsList.push(pokemonDetails)
-            })
+
+          const requests = this.apiData.results.map((pokemon, index) => 
+            axios.get(`https://pokeapi.co/api/v2/pokemon/${index + 1}/`)
           );
+          const responses = await axios.all(requests);
+
+          responses.forEach(response => {
+            const pokemonDetails = response.data;
+            this.pokemonDetailsList.push(pokemonDetails);
+          });
+
           this.filteredPokemonList = this.pokemonDetailsList.slice();
         } catch (error) {
           console.error('Erro ao obter dados da API', error);
@@ -32,7 +36,6 @@
     },
     computed:{
       PokemonList(){
-        console.log(this.textoBusca);
         if(this.textoBusca.trim().length > 0){
           return this.filteredPokemonList.filter((pokemon)=> pokemon.name.toLowerCase().includes(this.textoBusca.toLowerCase().trim()) )
         }
