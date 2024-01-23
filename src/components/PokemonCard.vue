@@ -19,14 +19,11 @@
             axios.get(`https://pokeapi.co/api/v2/pokemon/${index + 1}/`)
           );
 
+
           const responses = await axios.all(requests);
 
-          responses.forEach(response => {
-            const pokemonDetails = response.data;
-            this.pokemonDetailsList.push(pokemonDetails);
-          });
-
-          this.filteredPokemonList = this.pokemonDetailsList.slice();
+          this.pokemonDetailsList = responses.map((response) => response.data);
+          this.filteredPokemonList = [...this.pokemonDetailsList];
         } catch (error) {
           console.error('Erro ao obter dados da API', error);
         }
@@ -34,7 +31,6 @@
     },
     beforeMount() {
       this.getPokemon();
-     
     },
     computed:{
       PokemonList(){
